@@ -16,6 +16,18 @@ public class DataRequestController {
         // resources/templates/hello-request-form.html
         return "hello-request-form";
     }
+    @GetMapping("/star/{name}/age/{age}")
+    @ResponseBody
+    public String helloRequestPath(
+            @PathVariable String name,
+            @PathVariable int age
+    ) {
+        return String.format("Hello, @PathValiable로 받으 데이터값들, <br> name = %s, age = %d");
+    }
+
+
+
+    }
 
 
 }
