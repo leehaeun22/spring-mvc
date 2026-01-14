@@ -8,12 +8,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/hello/request")
 public class DataRequestController {
 
+    /* =========================
+       HTML Form View
+       ========================= */
 
     @GetMapping("/form/html")
     public String form() {
         // resources/templates/hello-request-form.html
         return "hello-request-form";
     }
+
+    /* =========================
+       @PathVariable
+       ========================= */
+
     @GetMapping("/star/{name}/age/{age}")
     @ResponseBody
     public String helloRequestPath(
@@ -25,29 +33,67 @@ public class DataRequestController {
                 name,
                 age
         );
-
     }
 
-    @GetMapping("form/param")
+    /* =========================
+       @RequestParam (GET)
+       ========================= */
+
+    @GetMapping("/form/param")
     @ResponseBody
-    public String helloRequestParam(@RequestParam String name, @RequestParam int age) {
-        return String.format("Hello, @RequestParam으로 받은 값들,<br> name = %s, age = %d",name,age);
-
+    public String helloRequestParam(
+            @RequestParam String name,
+            @RequestParam int age
+    ) {
+        return String.format(
+                "Hello, @RequestParam으로 받은 값들<br>name = %s, age = %d",
+                name,
+                age
+        );
     }
 
-    @PostMapping ("form/param")
+    /* =========================
+       @RequestParam (POST)
+       ========================= */
+
+    @PostMapping("/form/param")
     @ResponseBody
-    public String helloRequestParamPost(@RequestParam String name, @RequestParam int age) {
-        return String.format("Hello, @RequestParam으로 받은 값들,<br> name = %s, age = %d",name,age);
-
+    public String helloRequestParamPost(
+            @RequestParam String name,
+            @RequestParam int age
+    ) {
+        return String.format(
+                "Hello, @RequestParam으로 받은 값들<br>name = %s, age = %d",
+                name,
+                age
+        );
     }
-    @PostMapping("form/model")
+
+    /* =========================
+       @ModelAttribute (HTML form)
+       ========================= */
+
+    @PostMapping("/form/model")
     @ResponseBody
-    public String helloRequestModel( Star star){
-        return String.format("Hello, @ModelAttribute(보통생략)  받은 값들,<br> name = %s, age = %d",star.getName(),star.getAge());
+    public String helloRequestModel(Star star) {
+        return String.format(
+                "Hello, @ModelAttribute로 받은 값<br>name = %s, age = %d",
+                star.getName(),
+                star.getAge()
+        );
     }
 
+    /* =========================
+       @RequestBody (JSON)
+       ========================= */
 
-
-
+    @PostMapping("/form/model/json")
+    @ResponseBody
+    public String helloRequestModelJson(@RequestBody Star star) {
+        return String.format(
+                "Hello, @RequestBody로 받은 JSON 데이터<br>name = %s, age = %d",
+                star.getName(),
+                star.getAge()
+        );
+    }
 }
